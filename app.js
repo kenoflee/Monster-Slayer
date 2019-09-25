@@ -59,7 +59,7 @@ new Vue({
         },
         checkMessage(message) {
             if(confirm(message)) {
-                this.startGame()
+                this.startNewGame()
             } else {
                 this.gameIsRunning = false;
             }
