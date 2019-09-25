@@ -10,18 +10,25 @@
 <div id="app">
     <section class="row">
         <div class="small-6 columns">
+            <!-- Set up player and monster's health bar -->
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div 
+                    class="healthbar text-center" 
+                    style="background-color: green; margin: 0; color: white;"
+                    :style="{width: playerHealth + '%'}">
+                    {{playerHealth}}
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar text-center" 
+                    style="background-color: green; margin: 0; color: white;"
+                    :style="{width: monsterHealth + '%'}"
+                    >
+                    {{monsterHealth}}
                 </div>
             </div>
         </div>
@@ -39,6 +46,8 @@
             <button id="give-up">GIVE UP</button>
         </div>
     </section>
+
+    <!-- Display status below: -->
     <section class="row log">
         <div class="small-12 columns">
             <ul>
@@ -49,5 +58,6 @@
         </div>
     </section>
 </div>
+<script src="app.js"></script>
 </body>
 </html>
