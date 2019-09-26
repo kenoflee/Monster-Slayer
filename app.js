@@ -14,29 +14,28 @@ new Vue({
         },
         playerAttack(playerMax, playerMin) {
             const damage = this.generateDamage(playerMax, playerMin);
-
             this.monsterHealth -= damage;
-
             if(this.checkWin()) {
                 //no reason to continue so return
                 return;
             }
-
             this.addMessageToLog(`Player hits Monster for ${damage}` , true);
         },
         monsterAttack() {
-            const monsterMax = 12;
-            const monsterMin = 3
+            //delay monster attack by half a second to match the health animation
+            setTimeout(() => {
+                const monsterMax = 12;
+                const monsterMin = 3
 
-            const monsterDamage = this.generateDamage(monsterMax, monsterMin);
-            this.playerHealth -= monsterDamage;
+                const monsterDamage = this.generateDamage(monsterMax, monsterMin);
+                this.playerHealth -= monsterDamage;
 
-            if(this.checkWin()) {
-                //no reason to continue so return
-                return;
-            }
-
-            this.addMessageToLog(`Monster hits Player for ${monsterDamage}` , false);
+                if(this.checkWin()) {
+                    //no reason to continue so return
+                    return;
+                }
+                this.addMessageToLog(`Monster hits Player for ${monsterDamage}` , false);
+            }, 500)
         },
         specialAttack() {
             this.playerAttack(20, 10);
