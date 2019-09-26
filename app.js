@@ -11,9 +11,7 @@ new Vue({
             this.playerHealth = 100;
             this.monsterHealth = 100;
         },
-        attack() {
-            const playerMax = 10;
-            const playerMin = 1;
+        playerAttack(playerMax, playerMin) {
             const damage = this.generateDamage(playerMax, playerMin);
 
             this.monsterHealth -= damage;
@@ -22,20 +20,26 @@ new Vue({
                 //no reason to continue so return
                 return;
             }
-
+        },
+        monsterAttack() {
             const monsterMax = 12;
             const monsterMin = 3
 
             const monsterDamage = this.generateDamage(monsterMax, monsterMin);
             this.playerHealth -= monsterDamage;
 
-            //damage to the monster
-            this.checkWin();
-
-
+            if(this.checkWin()) {
+                //no reason to continue so return
+                return;
+            }
         },
         specialAttack() {
-
+            this.playerAttack(20, 10);
+            this.monsterAttack();
+        },
+        attack() {
+            this.playerAttack(10, 1);
+            this.monsterAttack();
         },
         heal() {
 
