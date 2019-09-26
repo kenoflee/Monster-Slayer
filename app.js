@@ -4,6 +4,7 @@ new Vue({
         monsterHealth: 100,
         playerHealth: 100,
         gameIsRunning: false,
+        turns: [],
     },
     methods: {
         startNewGame() {
@@ -20,6 +21,8 @@ new Vue({
                 //no reason to continue so return
                 return;
             }
+
+            this.addMessageToLog(`Player hits Monster for ${damage}` , true);
         },
         monsterAttack() {
             const monsterMax = 12;
@@ -32,6 +35,8 @@ new Vue({
                 //no reason to continue so return
                 return;
             }
+
+            this.addMessageToLog(`Monster hits Player for ${monsterDamage}` , false);
         },
         specialAttack() {
             this.playerAttack(20, 10);
@@ -44,18 +49,21 @@ new Vue({
         heal() {
             if(this.playerHealth <= 90) {
                 this.playerHealth += 10;
+                this.addMessageToLog('Player is healed by 10 points.' , true);
+
             } else {
                 this.playerHealth = 100;
+                this.addMessageToLog('Player is fully healed.' , true);
             }
             this.monsterAttack();
         },
         giveUp() {
             this.gameIsRunning = false;
+            this.turns = [];
         },
         generateDamage(max, min) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
         },
-
         checkWin() {
             if(this.playerHealth <= 0) {
                 this.checkMessage('You lost! New Game?');
@@ -68,10 +76,17 @@ new Vue({
         },
         checkMessage(message) {
             if(confirm(message)) {
-                this.startNewGame()
+                this.startNewGame();
             } else {
                 this.gameIsRunning = false;
             }
+        },
+
+        addMessageToLog(message, isPlayer) {
+            this.turns.unshift({
+                isPlayer: isPlayer,
+                message: message,
+            });
         }
     }
 })

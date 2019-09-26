@@ -48,11 +48,12 @@
     </section>
 
     <!-- Display status below: -->
-    <section class="row log">
+    <section class="row log" v-if="turns.length > 0">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li v-for="turn in turns"
+                    :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                    {{turn.message}}
                 </li>
             </ul>
         </div>
